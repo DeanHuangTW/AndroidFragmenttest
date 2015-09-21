@@ -14,9 +14,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		//預設使用layout1
-		Fragment fr = new testfrag(1);
+		Fragment fr = new testfrag();
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.replace(R.id.fragment1, fr);
 		ft.commit();

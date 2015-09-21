@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class testfrag extends Fragment implements View.OnClickListener{
+public class testfrag2 extends Fragment implements View.OnClickListener{
 	private int position;
 	private Button mBtnLayoutChange;
 	
-	public testfrag() {
+	public testfrag2() {
 		
 	}
 		
@@ -33,7 +33,7 @@ public class testfrag extends Fragment implements View.OnClickListener{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-    	View view = inflater.inflate(R.layout.mylayout1, container, false);
+    	View view = inflater.inflate(R.layout.mylayout2, container, false);
     	//取得view上的item
     	mBtnLayoutChange = (Button) view.findViewById(R.id.button1);
     	mBtnLayoutChange.setOnClickListener(this);
@@ -43,9 +43,9 @@ public class testfrag extends Fragment implements View.OnClickListener{
 	@Override
 	public void onClick(View v) {
 		if (v == mBtnLayoutChange) {
-			Fragment fr2 = new testfrag2();
+			Fragment fr = new testfrag();
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.replace(R.id.fragment1, fr2);
+			ft.replace(R.id.fragment1, fr);
 			ft.commit();
 		}
 	}
