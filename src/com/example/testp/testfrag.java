@@ -5,45 +5,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class testfrag extends Fragment {
-	private int position;
-	
+	Button mBtn1;
+	TextView layout1Text;
 	public testfrag() {
 		
 	}
 	
-	public testfrag(int pos) {
-		this.position = pos;
-	}
-	
-	@Override
-	public void onCreate(Bundle saved) {
-		super.onCreate(saved);
-		if (null != saved) {
-			position = saved.getInt("posValue");
-		}
-	}
-	
-	@Override
-	public void onSaveInstanceState(Bundle save) {
-		save.putInt("posValue", position);
-	}
-	
 	@Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    if (position == 1) {
-	    	View view = inflater.inflate(R.layout.mylayout1, container, false);
-		    return view;
-	    } else if (position == 2){
-	    	View view = inflater.inflate(R.layout.mylayout2, container, false);
-	    	return view;
-	    } else {
-	    	// default
-	    	LinearLayout l = new LinearLayout(getActivity().getApplicationContext());
-	    	return l;
-	    }
-		
+    	View view = inflater.inflate(R.layout.mylayout1, container, false);
+    	//取得來自activity的資料，並設置在layout1上的TextView
+    	layout1Text = (TextView) view.findViewById(R.id.layout1_textView1);
+    	Bundle bundle = getArguments();
+    	String arg = bundle.getString("data");
+    	layout1Text.setText(arg);
+    	
+    	mBtn1 = (Button)view.findViewById(R.id.layout1_button1);
+    	mBtn1.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//可以利用getActivity()取的activity的物件
+				TextView text = (TextView) getActivity().findViewById(R.id.main_textView1);
+				text.setText("this text is set by testfrag.java");
+				
+			}
+		});
+	    return view;
+
 	  }
 }

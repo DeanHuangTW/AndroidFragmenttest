@@ -9,31 +9,38 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
-
+	Button btn1;
+	Button btn2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Button btn1 = (Button) findViewById(R.id.button1);
-		Button btn2 = (Button) findViewById(R.id.button2);
+		btn1 = (Button) findViewById(R.id.main_button1);
+		btn2 = (Button) findViewById(R.id.main_button2);
 		
 		btn1.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				stackAFragment(1);
+				enableFragment1();
 			}
 		});
 		btn2.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				stackAFragment(2);
 			}
 		});
 	}
-	/* 定義一個新的Fragment */
-	private void stackAFragment(int pos) {
-		Fragment fr = new testfrag(pos);
+	
+	
+	private void enableFragment1() {
+		Fragment fr = new testfrag();
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		ft.replace(R.id.fragment1, fr);
+		//傳資料給fragment
+		Bundle bundle = new Bundle();
+		bundle.putString("data", "這是從activity來的data");
+		fr.setArguments(bundle);
+		
+		ft.replace(R.id.main_fragment, fr);
 		ft.commit();
 	}
 
