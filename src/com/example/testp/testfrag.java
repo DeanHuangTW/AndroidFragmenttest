@@ -1,5 +1,6 @@
 package com.example.testp;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +12,23 @@ import android.widget.TextView;
 
 public class testfrag extends Fragment {
 	Button mBtn1;
+	Button mBtn2;
 	TextView layout1Text;
-	public testfrag() {
-		
+	
+	public interface MyInterface{
+        public void getMessage(String msg);
+    }
+	public MyInterface myInterface;
+	
+	public testfrag() {		
 	}
+	
+	//當這Fragment加入Activity時，會被callback的方法，僅執行一次。
+	@Override
+    public void onAttach(Activity activity) {
+        myInterface = (MyInterface) activity;  //這樣可以取到實作MyInterface的Activity
+        super.onAttach(activity);
+    }
 	
 	@Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +48,14 @@ public class testfrag extends Fragment {
 				
 			}
 		});
+    	
+    	mBtn2 = (Button)view.findViewById(R.id.layout1_button2);
+    	mBtn2.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				myInterface.getMessage("來自於fragment的消息");
+			}
+		});
+    	
 	    return view;
 
 	  }
